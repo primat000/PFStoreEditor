@@ -4,6 +4,7 @@
 #include "PFStoreEditorStyle.h"
 #include "PFStoreEditorCommands.h"
 #include "LevelEditor.h"
+#include "SStoreManagerPanel.h"
 #include "Widgets/Docking/SDockTab.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Text/STextBlock.h"
@@ -15,8 +16,6 @@ static const FName PFStoreEditorTabName("PFStoreEditor");
 
 void FPFStoreEditorModule::StartupModule()
 {
-	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
-	
 	FPFStoreEditorStyle::Initialize();
 	FPFStoreEditorStyle::ReloadTextures();
 
@@ -38,9 +37,6 @@ void FPFStoreEditorModule::StartupModule()
 
 void FPFStoreEditorModule::ShutdownModule()
 {
-	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
-	// we call this function before unloading the module.
-
 	UToolMenus::UnRegisterStartupCallback(this);
 
 	UToolMenus::UnregisterOwner(this);
@@ -54,23 +50,28 @@ void FPFStoreEditorModule::ShutdownModule()
 
 TSharedRef<SDockTab> FPFStoreEditorModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
-	FText WidgetText = FText::Format(
-		LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-		FText::FromString(TEXT("FPFStoreEditorModule::OnSpawnPluginTab")),
-		FText::FromString(TEXT("PFStoreEditor.cpp"))
-		);
+	//FText WidgetText = FText::Format(
+	//	LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
+	//	FText::FromString(TEXT("FPFStoreEditorModule::OnSpawnPluginTab")),
+	//	FText::FromString(TEXT("PFStoreEditor.cpp"))
+	//	);
 
+	//return SNew(SDockTab)
+	//	.TabRole(ETabRole::NomadTab)
+	//	[
+	//		// Put your tab content here!
+	//		SNew(SBox)
+	//		.HAlign(HAlign_Center)
+	//		.VAlign(VAlign_Center)
+	//		[
+	//			SNew(STextBlock)
+	//			.Text(WidgetText)
+	//		]
+	//	];
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
 		[
-			// Put your tab content here!
-			SNew(SBox)
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Center)
-			[
-				SNew(STextBlock)
-				.Text(WidgetText)
-			]
+			SNew(SStoreManagerPanel)
 		];
 }
 
@@ -81,7 +82,6 @@ void FPFStoreEditorModule::PluginButtonClicked()
 
 void FPFStoreEditorModule::RegisterMenus()
 {
-	// Owner will be used for cleanup in call to UToolMenus::UnregisterOwner
 	FToolMenuOwnerScoped OwnerScoped(this);
 
 	{
