@@ -8,7 +8,10 @@
 #include "Interfaces/IHttpResponse.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 
-#include "Core/PlayFabClientAPI.h" 
+#include "Core/PlayFabAdminAPI.h" 
+#include "PlayFab.h"
+#include "PlayFabAdminAPI.h"
+#include "PlayFabAdminModels.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
@@ -118,7 +121,6 @@ void SStoreManagerPanel::Construct(const FArguments& InArgs)
                         .OnClicked(this, &SStoreManagerPanel::OnFindStoreItemsClicked)
                 ]
 
-                // Контейнер для списка предметов
                 + SVerticalBox::Slot()
                 .FillHeight(1.0f)
                 [
@@ -156,7 +158,6 @@ void SStoreManagerPanel::ExportDataTableToJson()
         UE_LOG(LogTemp, Error, TEXT("Failed to load StoreDataTable at path: %s"), *DataTablePath);
         return;
     }
-
     TArray<FStoreItem*> StoreItems;
     StoreDataTable->GetAllRows<FStoreItem>(TEXT(""), StoreItems);
 
@@ -190,15 +191,43 @@ void SStoreManagerPanel::ExportDataTableToJson()
 
 void SStoreManagerPanel::UploadJsonToPlayFab()
 {
-    const FString FilePath = FPaths::ProjectSavedDir() / TEXT("StoreData.json");
-    FString JsonString;
-    if (!FFileHelper::LoadFileToString(JsonString, *FilePath))
-    {
-        UE_LOG(LogTemp, Error, TEXT("Cannot find StoreData.json"));
-        return;
-    }
+    //const FString FilePath = FPaths::ProjectSavedDir() / TEXT("StoreData.json");
+    //FString JsonString;
+    //if (!FFileHelper::LoadFileToString(JsonString, *FilePath))
+    //{
+    //    UE_LOG(LogTemp, Error, TEXT("Cannot find StoreData.json"));
+    //    return;
+    //}
 
      //TODO: playfab request
+    PlayFabAdminPtr adminAPI = IPlayFabModuleInterface::Get().GetAdminAPI();
+    TSharedPtr<PlayFab::AdminModels::FUpdateCatalogItemsRequest> Request = MakeShared<PlayFab::AdminModels::FUpdateCatalogItemsRequest>();
+    
+    for (IStoreItemProvider* Item : InnerStoreItems)
+    {
+        PlayFab::AdminModels::FCatalogItem CatalogItem;
+        CatalogItem.DisplayName = Item->GetDisplayName();
+        //CatalogItem.VirtualCurrencyPrices = Item->Currency;
+        CatalogItem.ItemId = Item->GetItemId();
+        Request->Catalog.Add(CatalogItem);
+    }
+    Request->SetAsDefaultCatalog = true;
+    Request->CatalogVersion = "Main";
+
+    PlayFab::FPlayFabErrorDelegate OnError;
+    OnError.BindLambda([](const PlayFab::FPlayFabCppError& Error)
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to update catalog: %s"), *Error.ErrorMessage);
+        });
+
+    PlayFab::UPlayFabAdminAPI::FUpdateCatalogItemsDelegate OnSuccess;
+    OnSuccess.BindLambda([](const PlayFab::AdminModels::FUpdateCatalogItemsResult& Result)
+        {
+            UE_LOG(LogTemp, Log, TEXT("Catalog successfully updated from JSON!"));
+        });
+
+
+    adminAPI->UpdateCatalogItems(*Request, OnSuccess, OnError);
 }
 
 void SStoreManagerPanel::FindStoreItemsClicked()

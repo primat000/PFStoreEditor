@@ -24,7 +24,8 @@
 	"Plugins": [
 		{
 			"Name": "PlayFab",
-			"Enabled": true
+			"Enabled": true,
+			"Required": true
 		}
 	]
 }
