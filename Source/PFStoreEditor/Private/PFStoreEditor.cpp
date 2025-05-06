@@ -20,7 +20,7 @@ void FPFStoreEditorModule::StartupModule()
 	FPFStoreEditorStyle::ReloadTextures();
 
 	FPFStoreEditorCommands::Register();
-	
+
 	PluginCommands = MakeShareable(new FUICommandList);
 
 	PluginCommands->MapAction(
@@ -29,7 +29,7 @@ void FPFStoreEditorModule::StartupModule()
 		FCanExecuteAction());
 
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FPFStoreEditorModule::RegisterMenus));
-	
+
 	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(PFStoreEditorTabName, FOnSpawnTab::CreateRaw(this, &FPFStoreEditorModule::OnSpawnPluginTab))
 		.SetDisplayName(LOCTEXT("FPFStoreEditorTabTitle", "PFStoreEditor"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
@@ -50,24 +50,6 @@ void FPFStoreEditorModule::ShutdownModule()
 
 TSharedRef<SDockTab> FPFStoreEditorModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
 {
-	//FText WidgetText = FText::Format(
-	//	LOCTEXT("WindowWidgetText", "Add code to {0} in {1} to override this window's contents"),
-	//	FText::FromString(TEXT("FPFStoreEditorModule::OnSpawnPluginTab")),
-	//	FText::FromString(TEXT("PFStoreEditor.cpp"))
-	//	);
-
-	//return SNew(SDockTab)
-	//	.TabRole(ETabRole::NomadTab)
-	//	[
-	//		// Put your tab content here!
-	//		SNew(SBox)
-	//		.HAlign(HAlign_Center)
-	//		.VAlign(VAlign_Center)
-	//		[
-	//			SNew(STextBlock)
-	//			.Text(WidgetText)
-	//		]
-	//	];
 	return SNew(SDockTab)
 		.TabRole(ETabRole::NomadTab)
 		[
@@ -105,5 +87,5 @@ void FPFStoreEditorModule::RegisterMenus()
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FPFStoreEditorModule, PFStoreEditor)
