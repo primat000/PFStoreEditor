@@ -26,7 +26,8 @@ public class PFStoreEditor : ModuleRules
 			new string[]
 			{
 				"Core",
-                "EngineSettings"
+                "EngineSettings",
+                "DeveloperSettings"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -47,7 +48,8 @@ public class PFStoreEditor : ModuleRules
                 "Json",
                 "JsonUtilities",
                 "PlayFab",
-                "PlayFabCpp"
+                "PlayFabCpp",
+                "Settings",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

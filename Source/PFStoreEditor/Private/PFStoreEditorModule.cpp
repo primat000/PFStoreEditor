@@ -1,4 +1,6 @@
 #include "PFStoreEditorModule.h"
+#include "PFStoreEditorSettings.h"
+
 
 void FMyPluginModule::StartupModule()
 {
@@ -6,6 +8,7 @@ void FMyPluginModule::StartupModule()
 		FOnSpawnTab::CreateRaw(this, &FMyPluginModule::OnSpawnPluginTab))
 		.SetDisplayName(NSLOCTEXT("MyPluginNamespace", "MyPluginTabTitle", "My Plugin"))
 		.SetMenuType(ETabSpawnerMenuType::Hidden);
+	const UPFStoreEditorSettings* Settings = GetDefault<UPFStoreEditorSettings>();
 	FGlobalTabmanager::Get()->TryInvokeTab(FName("MyPluginTab"));
 }
 

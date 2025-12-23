@@ -19,22 +19,25 @@ private:
 	TArray<TSharedPtr<UObject>> StoreItemProvider;
 	TArray<TSharedPtr<UObject>> StoreDropTableProvider;
 
-	TSharedPtr<SEditableTextBox> ExtractPathTextBox;
+
 	TSharedPtr<SEditableTextBox> UploadPathTextBox;
 	TSharedPtr<SEditableTextBox> CatalogNameTextBox;
 
 	TSharedRef<SWidget> BuildSplitterPanel();
-
-	FReply OnExtractBrowseClicked();
-	FReply OnExtractClicked();
+	TSharedRef<SWidget> BuildCompareAndMergePanel();
+	TSharedRef<SWidget> BuildEditorEconomyPanel();
 
 	FReply OnUploadBrowseClicked();
 	FReply OnUploadClicked();
 
-	bool PickFolderDialog(FString& OutFolder);
+	//bool PickFolderDialog(FString& OutFolder);
 	bool PickFileDialog(const FString& Title, const FString& DefaultPath, const FString& DefaultFile, const FString& FileTypes, FString& OutFile);
+	void ShowDiffWindow(TSharedPtr<FJsonObject> Left, TSharedPtr<FJsonObject> Right);
 
 	void UploadCatalogItemsToPlayFab(const FString& File);
 	void UploadCatalogDropTablesToPlayFab(const FString& File);
+
+	//TODO: remove TEST
+	void ShowDiffWindow_Test();
 };
 
