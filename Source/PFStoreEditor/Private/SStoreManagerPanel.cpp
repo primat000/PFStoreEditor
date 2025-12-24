@@ -1,5 +1,4 @@
 #include "SStoreManagerPanel.h"
-#include "StoreItem.h"
 #include "SlateOptMacros.h"
 #include "Engine/DataTable.h"
 #include "Misc/FileHelper.h"
@@ -16,6 +15,7 @@
 #include "SCompareAndMergePanel.h"
 #include "SEditorEconomyPanel.h"
 #include "PFStoreEditorSettings.h"
+#include "PFHelpers.h"
 
 #include "Core/PlayFabAdminAPI.h" 
 #include "PlayFab.h"
@@ -224,13 +224,13 @@ void SStoreManagerPanel::UploadCatalogItemsToPlayFab(const FString& File)
 	TSharedPtr<PlayFab::AdminModels::FUpdateCatalogItemsRequest> Request = MakeShared<PlayFab::AdminModels::FUpdateCatalogItemsRequest>();
 
 	TArray<PlayFab::AdminModels::FCatalogItem> OutItems;
-	//MyPlayFabHelpers::ImportItemsFromCsv(File, OutItems);
+	PFHelpers::ImportItemsFromCsv(File, OutItems);
 
 	Request->Catalog = OutItems;
 	// TODO: ? remove
 	//Request->SetAsDefaultCatalog = true;
-	FString CatalogName = CatalogNameTextBox->GetText().ToString();
-	Request->CatalogVersion = CatalogName;
+	const UPFStoreEditorSettings* Settings = GetDefault<UPFStoreEditorSettings>();
+	Request->CatalogVersion = Settings->DefaultCatalogVersion;
 
 	PlayFab::FPlayFabErrorDelegate OnError;
 	OnError.BindLambda([](const PlayFab::FPlayFabCppError& Error)

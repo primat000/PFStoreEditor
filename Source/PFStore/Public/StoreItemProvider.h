@@ -3,11 +3,10 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "StoreItem.h"
 #include "StoreItemProvider.generated.h"
 
 USTRUCT(BlueprintType)
-struct FConsumableInfo
+struct PFSTORE_API FConsumableInfo
 {
 	GENERATED_BODY()
 
@@ -22,7 +21,7 @@ struct FConsumableInfo
 };
 
 USTRUCT(BlueprintType)
-struct FBundleInfo
+struct PFSTORE_API FBundleInfo
 {
 	GENERATED_BODY()
 
@@ -37,7 +36,7 @@ struct FBundleInfo
 };
 
 USTRUCT(BlueprintType)
-struct FContainerInfo
+struct PFSTORE_API FContainerInfo
 {
 	GENERATED_BODY()
 
@@ -55,12 +54,12 @@ struct FContainerInfo
 };
 
 UINTERFACE(Blueprintable)
-class UStoreItemProvider : public UInterface
+class PFSTORE_API UStoreItemProvider : public UInterface
 {
 	GENERATED_BODY()
 };
 
-class IStoreItemProvider
+class PFSTORE_API IStoreItemProvider
 {
 	GENERATED_BODY()
 
@@ -84,12 +83,12 @@ public:
 };
 
 UINTERFACE(Blueprintable, meta = (CannotImplementInterfaceInBlueprint))
-class UStoreContainerProvider : public UInterface
+class PFSTORE_API UStoreContainerProvider : public UInterface
 {
 	GENERATED_BODY()
 };
 
-class IStoreContainerProvider
+class PFSTORE_API IStoreContainerProvider
 {
 	GENERATED_BODY()
 
@@ -99,12 +98,12 @@ public:
 };
 
 UINTERFACE(Blueprintable, meta = (CannotImplementInterfaceInBlueprint))
-class UStoreBundleProvider : public UInterface
+class PFSTORE_API UStoreBundleProvider : public UInterface
 {
 	GENERATED_BODY()
 };
 
-class IStoreBundleProvider
+class PFSTORE_API IStoreBundleProvider
 {
 	GENERATED_BODY()
 

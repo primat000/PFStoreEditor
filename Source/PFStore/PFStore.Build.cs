@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class PFStoreEditor : ModuleRules
+public class PFStore : ModuleRules
 {
-	public PFStoreEditor(ReadOnlyTargetRules Target) : base(Target)
+	public PFStore(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -27,8 +27,7 @@ public class PFStoreEditor : ModuleRules
 			{
 				"Core",
                 "EngineSettings",
-                "DeveloperSettings",
-                "PFStore"
+                "DeveloperSettings"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
