@@ -1,4 +1,6 @@
-﻿#include "SEditorEconomyPanel.h"
+﻿// MIT Licensed. Copyright (c) 2025 Olga Taranova
+
+#include "SEditorEconomyPanel.h"
 
 #include "PFHelpers.h"
 

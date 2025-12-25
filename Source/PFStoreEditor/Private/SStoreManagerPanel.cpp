@@ -1,3 +1,5 @@
+// MIT Licensed. Copyright (c) 2025 Olga Taranova
+
 #include "SStoreManagerPanel.h"
 #include "SlateOptMacros.h"
 #include "Engine/DataTable.h"

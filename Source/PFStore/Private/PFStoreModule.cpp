@@ -1,3 +1,5 @@
+// MIT Licensed. Copyright (c) 2025 Olga Taranova
+
 #include "PFStoreModule.h"
 
 #include "Modules/ModuleManager.h"

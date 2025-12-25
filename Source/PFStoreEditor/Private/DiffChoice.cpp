@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// MIT Licensed. Copyright (c) 2025 Olga Taranova
 
 
 #include "DiffChoice.h"

@@ -1,4 +1,6 @@
-﻿#include "SCompareAndMergePanel.h"
+﻿// MIT Licensed. Copyright (c) 2025 Olga Taranova
+
+#include "SCompareAndMergePanel.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SSplitter.h"
 #include "Widgets/Input/SButton.h"

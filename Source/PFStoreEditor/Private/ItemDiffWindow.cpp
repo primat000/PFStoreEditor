@@ -1,3 +1,5 @@
+// MIT Licensed. Copyright (c) 2025 Olga Taranova
+
 #include "ItemDiffWindow.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Text/STextBlock.h"
